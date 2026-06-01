@@ -54,7 +54,7 @@ function MetricCard({ label, value, change, description, color = 'var(--accent)'
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
-      className="rounded-xl p-5 theme-transition"
+      className="premium-card p-5 theme-transition"
       style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)' }}>
       <div className="flex items-start justify-between mb-3">
         <div className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>{label}</div>
@@ -137,32 +137,25 @@ export default function Analytics() {
   const cardStyle = { background: 'var(--bg-surface)', border: '1px solid var(--border)' };
 
   return (
-    <div className="min-h-screen theme-transition" style={{ background: 'var(--bg-base)' }}>
+    <div className="page-shell min-h-screen theme-transition" style={{ background: 'var(--bg-base)' }}>
       <TopBar title="AI Analytics" subtitle="Operational intelligence & predictive insights" />
 
-      <div className="p-6 space-y-5">
-        {/* AI header */}
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-          className="rounded-xl p-5 flex items-center gap-4 theme-transition"
-          style={{ background: 'var(--accent-soft)', border: '1px solid var(--accent-border)' }}>
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: 'linear-gradient(135deg, var(--accent), var(--purple))' }}>
-            <Brain size={18} className="text-white" />
-          </div>
-          <div>
-            <div className="text-sm font-semibold mb-0.5" style={{ color: 'var(--text-primary)' }}>AI Operational Intelligence Engine</div>
-            <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-              Analyzing updates across all projects · Last processed 4 minutes ago ·
-              <span className="ml-1 font-medium" style={{ color: 'var(--accent)' }}>3 new signals detected</span>
+      <div className="content-layer p-5 lg:p-6 space-y-5">
+        <motion.section initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="premium-card p-5 lg:p-6" style={{ background: 'var(--bg-glass)', boxShadow: 'var(--shadow-xl)' }}>
+          <div className="flex flex-col lg:flex-row lg:items-end gap-5">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4" style={{ background: 'var(--accent-soft)', border: '1px solid var(--accent-border)', color: 'var(--accent)' }}>
+                <Brain size={12} /> AI operational intelligence engine
+              </div>
+              <h2 className="text-3xl lg:text-4xl font-semibold tracking-tight" style={{ color: 'var(--text-primary)' }}>The signal layer, styled like a premium control room.</h2>
+              <p className="mt-3 max-w-2xl text-sm lg:text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>A visual system for radar, risk, workload, morale, and recommendations that feels closer to Stripe and Linear than a standard admin dashboard.</p>
+            </div>
+            <div className="flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-2xl" style={{ background: 'rgba(52,211,153,0.12)', color: 'var(--success)', border: '1px solid rgba(52,211,153,0.24)' }}>
+              <Activity size={12} className="animate-pulse" /> Live analysis running
             </div>
           </div>
-          <div className="ml-auto flex items-center gap-1.5 text-xs font-medium" style={{ color: 'var(--success)' }}>
-            <Activity size={12} className="animate-pulse" />
-            Live
-          </div>
-        </motion.div>
+        </motion.section>
 
-        {/* Key metrics */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <MetricCard label="Operational Health Score" value={stats.orgHealthScore || 67} change={-5} description="Org-wide composite score" color="var(--accent)" delay={0.05} />
           <MetricCard label="Avg Team Morale" value={`${stats.avgMorale}%`} change={-8} description="Down from last week" color="#ec4899" delay={0.1} />
@@ -170,49 +163,42 @@ export default function Analytics() {
           <MetricCard label="Delivery Confidence" value={`${stats.deliveryConfidence}%`} change={-5} description="Across all active projects" color="var(--success)" delay={0.2} />
         </div>
 
-        {/* Charts row 1 */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          {/* Radar */}
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
-            className="rounded-xl p-5 theme-transition" style={cardStyle}>
+        <div className="bento-grid items-stretch">
+          <motion.section initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="premium-card p-5 lg:p-6 col-span-12 xl:col-span-4" style={cardStyle}>
             <div className="text-sm font-semibold mb-0.5" style={{ color: 'var(--text-primary)' }}>Org Health Radar</div>
             <div className="text-xs mb-3" style={{ color: 'var(--text-muted)' }}>Multi-dimensional performance</div>
-            <ResponsiveContainer width="100%" height={220}>
+            <ResponsiveContainer width="100%" height={240}>
               <RadarChart data={radarData}>
                 <PolarGrid stroke={gridColor} />
                 <PolarAngleAxis dataKey="metric" tick={{ fill: axisColor, fontSize: 11 }} />
                 <PolarRadiusAxis domain={[0, 100]} tick={false} axisLine={false} />
-                <Radar name="Score" dataKey="value" stroke="var(--accent)" fill="var(--accent)" fillOpacity={0.15} strokeWidth={2} />
+                <Radar name="Score" dataKey="value" stroke="var(--accent)" fill="var(--accent)" fillOpacity={0.2} strokeWidth={2.5} />
               </RadarChart>
             </ResponsiveContainer>
-          </motion.div>
+          </motion.section>
 
-          {/* Risk scores */}
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-            className="rounded-xl p-5 theme-transition" style={cardStyle}>
+          <motion.section initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="premium-card p-5 lg:p-6 col-span-12 xl:col-span-4" style={cardStyle}>
             <div className="text-sm font-semibold mb-0.5" style={{ color: 'var(--text-primary)' }}>Project Risk Scores</div>
             <div className="text-xs mb-3" style={{ color: 'var(--text-muted)' }}>AI-calculated risk index</div>
-            <ResponsiveContainer width="100%" height={220}>
+            <ResponsiveContainer width="100%" height={240}>
               <BarChart data={displayRiskScores} layout="vertical" barSize={12}>
                 <XAxis type="number" domain={[0, 100]} tick={{ fill: axisColor, fontSize: 11 }} axisLine={false} tickLine={false} />
                 <YAxis type="category" dataKey="name" tick={{ fill: axisColor, fontSize: 11 }} axisLine={false} tickLine={false} width={55} />
                 <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="score" name="Risk Score" radius={[0, 4, 4, 0]}>
+                <Bar dataKey="score" name="Risk Score" radius={[0, 12, 12, 0]}>
                   {displayRiskScores.map((entry, i) => <Cell key={i} fill={entry.color} />)}
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
-          </motion.div>
+          </motion.section>
 
-          {/* Workload */}
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
-            className="rounded-xl p-5 theme-transition" style={cardStyle}>
+          <motion.section initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="premium-card p-5 lg:p-6 col-span-12 xl:col-span-4" style={cardStyle}>
             <div className="text-sm font-semibold mb-0.5" style={{ color: 'var(--text-primary)' }}>Workload Indicators</div>
             <div className="text-xs mb-4" style={{ color: 'var(--text-muted)' }}>Employee capacity utilization</div>
             <div className="space-y-3.5">
               {workload.map((emp, i) => {
                 const load = emp.load || emp.projectCount * 25 || 0;
-                const color = load >= 90 ? '#ef4444' : load >= 75 ? '#fbbf24' : '#34d399';
+                const color = load >= 90 ? '#ef4444' : load >= 75 ? '#f59e0b' : '#34d399';
                 const displayName = emp.name?.split(' ')[0] || emp.name;
                 return (
                   <div key={emp.id || i}>
@@ -220,79 +206,53 @@ export default function Analytics() {
                       <span style={{ color: 'var(--text-secondary)' }}>{displayName}</span>
                       <span style={{ color }} className="font-semibold">{load}%</span>
                     </div>
-                    <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--bg-overlay)' }}>
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${load}%` }}
-                        transition={{ duration: 0.8, delay: 0.4 + i * 0.1 }}
-                        className="h-full rounded-full"
-                        style={{ background: color }} />
+                    <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'var(--bg-overlay)' }}>
+                      <motion.div initial={{ width: 0 }} animate={{ width: `${load}%` }} transition={{ duration: 0.8, delay: 0.4 + i * 0.1 }} className="h-full rounded-full" style={{ background: `linear-gradient(90deg, ${color}, var(--accent))`, boxShadow: `0 0 16px ${color}55` }} />
                     </div>
                   </div>
                 );
               })}
             </div>
-          </motion.div>
+          </motion.section>
         </div>
 
-        {/* Charts row 2 */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {/* Morale trend */}
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-            className="rounded-xl p-5 theme-transition" style={cardStyle}>
+        <div className="bento-grid items-stretch">
+          <motion.section initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="premium-card p-5 lg:p-6 col-span-12 xl:col-span-6" style={cardStyle}>
             <div className="text-sm font-semibold mb-0.5" style={{ color: 'var(--text-primary)' }}>Morale Trend Analysis</div>
             <div className="text-xs mb-4" style={{ color: 'var(--text-muted)' }}>5-week rolling by department</div>
-            <ResponsiveContainer width="100%" height={180}>
+            <ResponsiveContainer width="100%" height={200}>
               <LineChart data={moraleHistory}>
                 <XAxis dataKey="week" tick={{ fill: axisColor, fontSize: 11 }} axisLine={false} tickLine={false} />
                 <YAxis domain={[30, 100]} tick={{ fill: axisColor, fontSize: 11 }} axisLine={false} tickLine={false} />
                 <Tooltip content={<CustomTooltip />} />
-                <Line type="monotone" dataKey="engineering" name="Engineering" stroke="#6366f1" strokeWidth={2} dot={false} />
-                <Line type="monotone" dataKey="product"     name="Product"     stroke="#34d399" strokeWidth={2} dot={false} />
-                <Line type="monotone" dataKey="platform"    name="Platform"    stroke="#ef4444" strokeWidth={2} dot={false} />
-                <Line type="monotone" dataKey="qa"          name="QA"          stroke="#fbbf24" strokeWidth={2} dot={false} />
+                <Line type="monotone" dataKey="engineering" name="Engineering" stroke="#ff6a00" strokeWidth={2.5} dot={false} />
+                <Line type="monotone" dataKey="product" name="Product" stroke="#34d399" strokeWidth={2.5} dot={false} />
+                <Line type="monotone" dataKey="platform" name="Platform" stroke="#ef4444" strokeWidth={2.5} dot={false} />
+                <Line type="monotone" dataKey="qa" name="QA" stroke="#f59e0b" strokeWidth={2.5} dot={false} />
               </LineChart>
             </ResponsiveContainer>
-            <div className="flex gap-4 mt-3">
-              {[['Engineering', '#6366f1'], ['Product', '#34d399'], ['Platform', '#ef4444'], ['QA', '#fbbf24']].map(([name, color]) => (
-                <div key={name} className="flex items-center gap-1.5 text-xs" style={{ color: 'var(--text-secondary)' }}>
-                  <div className="w-2 h-2 rounded-full" style={{ background: color }} />
-                  {name}
-                </div>
-              ))}
-            </div>
-          </motion.div>
+          </motion.section>
 
-          {/* Engagement */}
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}
-            className="rounded-xl p-5 theme-transition" style={cardStyle}>
+          <motion.section initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} className="premium-card p-5 lg:p-6 col-span-12 xl:col-span-6" style={cardStyle}>
             <div className="text-sm font-semibold mb-0.5" style={{ color: 'var(--text-primary)' }}>Employee Engagement</div>
             <div className="text-xs mb-4" style={{ color: 'var(--text-muted)' }}>Updates submitted vs AI responses</div>
-            <ResponsiveContainer width="100%" height={180}>
+            <ResponsiveContainer width="100%" height={200}>
               <AreaChart data={engagement}>
                 <defs>
-                  <linearGradient id="gUpdates" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.25} />
-                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
-                  </linearGradient>
-                  <linearGradient id="gResponses" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#a855f7" stopOpacity={0.25} />
-                    <stop offset="95%" stopColor="#a855f7" stopOpacity={0} />
-                  </linearGradient>
+                  <linearGradient id="gUpdates" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#ff6a00" stopOpacity={0.26} /><stop offset="95%" stopColor="#ff6a00" stopOpacity={0} /></linearGradient>
+                  <linearGradient id="gResponses" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.26} /><stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} /></linearGradient>
                 </defs>
                 <XAxis dataKey="week" tick={{ fill: axisColor, fontSize: 11 }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fill: axisColor, fontSize: 11 }} axisLine={false} tickLine={false} />
                 <Tooltip content={<CustomTooltip />} />
-                <Area type="monotone" dataKey="updates"   name="Updates"      stroke="#6366f1" fill="url(#gUpdates)"   strokeWidth={2} />
-                <Area type="monotone" dataKey="responses" name="AI Responses"  stroke="#a855f7" fill="url(#gResponses)" strokeWidth={2} />
+                <Area type="monotone" dataKey="updates" name="Updates" stroke="#ff6a00" fill="url(#gUpdates)" strokeWidth={2.5} />
+                <Area type="monotone" dataKey="responses" name="AI Responses" stroke="#8b5cf6" fill="url(#gResponses)" strokeWidth={2.5} />
               </AreaChart>
             </ResponsiveContainer>
-          </motion.div>
+          </motion.section>
         </div>
 
-        {/* AI Recommendations */}
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
-          className="rounded-xl p-5 theme-transition" style={cardStyle}>
+        <motion.section initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="premium-card p-5 lg:p-6" style={cardStyle}>
           <div className="flex items-center gap-2 mb-4">
             <Zap size={14} style={{ color: 'var(--accent)' }} />
             <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>AI Recommendations</div>
@@ -300,16 +260,10 @@ export default function Analytics() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {recommendations.map((rec, i) => {
-              const color = rec.color || (rec.priority === 'Critical' ? '#ef4444' : rec.priority === 'High' ? '#f97316' : '#fbbf24');
+              const color = rec.color || (rec.priority === 'Critical' ? '#ef4444' : rec.priority === 'High' ? '#f97316' : '#f59e0b');
               return (
-                <motion.div key={i}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.55 + i * 0.08 }}
-                  className="p-4 rounded-xl theme-transition"
-                  style={{ background: `${color}08`, border: `1px solid ${color}25` }}>
-                  <div className="text-xs font-semibold mb-2 px-2 py-0.5 rounded-full inline-block"
-                    style={{ background: `${color}18`, color }}>
+                <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 + i * 0.08 }} className="premium-card p-4" style={{ background: `${color}08`, border: `1px solid ${color}25` }}>
+                  <div className="text-xs font-semibold mb-2 px-2 py-0.5 rounded-full inline-block" style={{ background: `${color}18`, color }}>
                     {rec.priority}
                   </div>
                   <div className="text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>{rec.title}</div>
@@ -318,7 +272,7 @@ export default function Analytics() {
               );
             })}
           </div>
-        </motion.div>
+        </motion.section>
       </div>
     </div>
   );

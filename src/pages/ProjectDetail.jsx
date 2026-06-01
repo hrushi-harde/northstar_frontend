@@ -99,10 +99,10 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="min-h-screen theme-transition" style={{ background: 'var(--bg-base)' }}>
+    <div className="page-shell min-h-screen theme-transition" style={{ background: 'var(--bg-base)' }}>
       <TopBar title={project.name} subtitle={project.description} />
 
-      <div className="p-6 space-y-5">
+      <div className="content-layer p-5 lg:p-6 space-y-5">
         {/* Back */}
         <div className="flex items-center gap-3">
           <button onClick={() => navigate('/projects')}
@@ -131,7 +131,7 @@ export default function ProjectDetail() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.06 }}
-              className="rounded-xl p-4 theme-transition"
+              className="premium-card p-4 theme-transition"
               style={cardStyle}>
               <div className="text-xs mb-2" style={{ color: 'var(--text-muted)' }}>{stat.label}</div>
               <div className="text-2xl font-bold" style={{ color: stat.color }}>{stat.value}</div>
@@ -144,7 +144,7 @@ export default function ProjectDetail() {
           <div className="lg:col-span-2 space-y-5">
             {/* Progress chart */}
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-              className="rounded-xl p-5 theme-transition" style={cardStyle}>
+              className="premium-card p-5 theme-transition" style={cardStyle}>
               <div className="flex items-center justify-between mb-4">
                 <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>Progress Timeline</div>
                 <div className="flex gap-2">
@@ -174,7 +174,7 @@ export default function ProjectDetail() {
             {/* Blockers */}
             {blockerList.length > 0 && (
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
-                className="rounded-xl p-5 theme-transition"
+                className="premium-card p-5 theme-transition"
                 style={{ background: 'var(--danger-soft)', border: '1px solid var(--danger)20' }}>
                 <div className="flex items-center gap-2 mb-4">
                   <AlertTriangle size={14} style={{ color: 'var(--danger)' }} />
@@ -186,7 +186,7 @@ export default function ProjectDetail() {
                 </div>
                 <div className="space-y-2">
                   {blockerList.map(b => (
-                    <div key={b.id} className="flex items-start gap-3 px-3 py-2.5 rounded-xl theme-transition"
+                    <div key={b.id} className="flex items-start gap-3 px-3 py-2.5 rounded-2xl premium-card theme-transition"
                       style={{
                         background: 'var(--bg-surface)',
                         border: '1px solid var(--border)',
@@ -244,7 +244,7 @@ export default function ProjectDetail() {
 
             {/* Signal Activity Feed */}
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-              className="rounded-xl p-5 theme-transition" style={cardStyle}>
+              className="premium-card p-5 theme-transition" style={cardStyle}>
               <div className="flex items-center gap-2 mb-4">
                 <Activity size={14} style={{ color: 'var(--text-muted)' }} />
                 <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>Signal Activity</div>
@@ -324,7 +324,7 @@ export default function ProjectDetail() {
 
             {/* Velocity & Morale metrics */}
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
-              className="rounded-xl p-5 theme-transition" style={cardStyle}>
+              className="premium-card p-5 theme-transition" style={cardStyle}>
               <div className="flex items-center gap-2 mb-4">
                 <TrendingUp size={14} style={{ color: 'var(--text-muted)' }} />
                 <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>Health Metrics</div>
@@ -388,7 +388,7 @@ export default function ProjectDetail() {
                 </div>
 
                 {/* Blocker trend */}
-                <div className="rounded-xl p-4 theme-transition"
+                <div className="premium-card p-4 theme-transition"
                   style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}>
                   <div className="text-xs font-medium mb-2" style={{ color: 'var(--text-muted)' }}>Open Blockers</div>
                   <div className="text-2xl font-bold mb-1"
@@ -404,7 +404,7 @@ export default function ProjectDetail() {
                 </div>
 
                 {/* Completion forecast */}
-                <div className="rounded-xl p-4 theme-transition"
+                <div className="premium-card p-4 theme-transition"
                   style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}>
                   <div className="text-xs font-medium mb-2" style={{ color: 'var(--text-muted)' }}>Completion</div>
                   <div className="text-2xl font-bold mb-1" style={{ color: 'var(--accent)' }}>
@@ -425,7 +425,7 @@ export default function ProjectDetail() {
           <div className="space-y-5">
             {/* Team */}
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
-              className="rounded-xl p-5 theme-transition" style={cardStyle}>
+              className="premium-card p-5 theme-transition" style={cardStyle}>
               <div className="flex items-center gap-2 mb-4">
                 <Users size={14} style={{ color: 'var(--text-muted)' }} />
                 <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>Team</div>
@@ -464,7 +464,7 @@ export default function ProjectDetail() {
 
             {/* Project info */}
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-              className="rounded-xl p-5 theme-transition" style={cardStyle}>
+              className="premium-card p-5 theme-transition" style={cardStyle}>
               <div className="text-sm font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Project Info</div>
               <div className="space-y-3">
                 <div className="flex justify-between text-xs">
@@ -495,7 +495,7 @@ export default function ProjectDetail() {
             {/* AI Insights */}
             {insights.length > 0 && (
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
-                className="rounded-xl p-5 theme-transition"
+                className="premium-card p-5 theme-transition"
                 style={{ background: 'var(--accent-soft)', border: '1px solid var(--accent-border)' }}>
                 <div className="flex items-center gap-2 mb-3">
                   <Zap size={13} style={{ color: 'var(--accent)' }} />
@@ -515,7 +515,7 @@ export default function ProjectDetail() {
             {/* Contributor activity */}
             {project.updates?.length > 0 && (
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-                className="rounded-xl p-5 theme-transition" style={cardStyle}>
+                className="premium-card p-5 theme-transition" style={cardStyle}>
                 <div className="flex items-center gap-2 mb-4">
                   <Activity size={14} style={{ color: 'var(--text-muted)' }} />
                   <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>Contributors</div>

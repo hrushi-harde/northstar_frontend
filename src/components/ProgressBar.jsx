@@ -10,13 +10,13 @@ export default function ProgressBar({ value, color }) {
   };
   const c = getColor();
   return (
-    <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--bg-overlay)' }}>
+    <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'var(--bg-overlay)' }}>
       <motion.div
         initial={{ width: 0 }}
         animate={{ width: `${value}%` }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
         className="h-full rounded-full"
-        style={{ background: c }}
+        style={{ background: `linear-gradient(90deg, ${c}, var(--accent))`, boxShadow: `0 0 18px ${c}55` }}
       />
     </div>
   );

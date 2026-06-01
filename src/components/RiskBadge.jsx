@@ -8,8 +8,8 @@ const config = {
 export default function RiskBadge({ level }) {
   const c = config[level] || config.low;
   return (
-    <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium"
-      style={{ background: c.bg, color: c.text }}>
+    <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold border"
+      style={{ background: c.bg, color: c.text, borderColor: `${c.text}30` }}>
       {c.label}
     </span>
   );

@@ -136,9 +136,9 @@ function ExecutiveUpdatesView() {
   const filtered = filter === 'all' ? updates : updates.filter(u => u.signals?.includes(filter));
 
   return (
-    <div className="min-h-screen theme-transition" style={{ background: 'var(--bg-base)' }}>
+    <div className="page-shell min-h-screen theme-transition" style={{ background: 'var(--bg-base)' }}>
       <TopBar title="Team Updates" subtitle="Organisation-wide operational update feed" />
-      <div className="p-6 space-y-5">
+      <div className="content-layer p-5 lg:p-6 space-y-5">
         <div className="flex items-center gap-2 flex-wrap">
           <Filter size={13} style={{ color: 'var(--text-muted)' }} />
           <span className="text-xs" style={{ color: 'var(--text-muted)' }}>Filter:</span>
@@ -166,7 +166,7 @@ function ExecutiveUpdatesView() {
             {filtered.map((update, i) => (
               <motion.div key={update.id}
                 initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}
-                className="rounded-xl p-4 theme-transition"
+                className="premium-card p-4 theme-transition"
                 style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)' }}>
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-7 h-7 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0"
@@ -245,9 +245,9 @@ function ManagerUpdatesView() {
   }, {});
 
   return (
-    <div className="min-h-screen theme-transition" style={{ background: 'var(--bg-base)' }}>
+    <div className="page-shell min-h-screen theme-transition" style={{ background: 'var(--bg-base)' }}>
       <TopBar title="Team Updates" subtitle="Review your team's operational check-ins" />
-      <div className="p-6 space-y-5">
+      <div className="content-layer p-5 lg:p-6 space-y-5">
         <div className="flex items-center gap-2 flex-wrap">
           <span className="text-xs" style={{ color: 'var(--text-muted)' }}>Project:</span>
           <button onClick={() => setProjectFilter('all')}
