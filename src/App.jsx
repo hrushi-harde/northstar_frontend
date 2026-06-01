@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -26,24 +28,28 @@ function ProtectedRoute({ children }) {
 }
 
 function AppRoutes() {
+  const location = useLocation();
+
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/" element={
-        <ProtectedRoute>
-          <Layout />
-        </ProtectedRoute>
-      }>
-        <Route index element={<Navigate to="/dashboard" replace />} />
-        <Route path="dashboard"    element={<ErrorBoundary><Dashboard /></ErrorBoundary>} />
-        <Route path="projects"     element={<ErrorBoundary><Projects /></ErrorBoundary>} />
-        <Route path="projects/:id" element={<ErrorBoundary><ProjectDetail /></ErrorBoundary>} />
-        <Route path="updates"      element={<ErrorBoundary><Updates /></ErrorBoundary>} />
-        <Route path="analytics"    element={<ErrorBoundary><Analytics /></ErrorBoundary>} />
-        <Route path="team"         element={<ErrorBoundary><Team /></ErrorBoundary>} />
-      </Route>
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
-    </Routes>
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={
+          <ProtectedRoute>
+            <Layout />
+          </ProtectedRoute>
+        }>
+          <Route index element={<Navigate to="/dashboard" replace />} />
+          <Route path="dashboard"    element={<ErrorBoundary><Dashboard /></ErrorBoundary>} />
+          <Route path="projects"     element={<ErrorBoundary><Projects /></ErrorBoundary>} />
+          <Route path="projects/:id" element={<ErrorBoundary><ProjectDetail /></ErrorBoundary>} />
+          <Route path="updates"      element={<ErrorBoundary><Updates /></ErrorBoundary>} />
+          <Route path="analytics"    element={<ErrorBoundary><Analytics /></ErrorBoundary>} />
+          <Route path="team"         element={<ErrorBoundary><Team /></ErrorBoundary>} />
+        </Route>
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
+    </AnimatePresence>
   );
 }
 
