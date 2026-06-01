@@ -228,10 +228,10 @@ export default function Team() {
   const cardStyle = { background: 'var(--bg-surface)', border: '1px solid var(--border)' };
 
   return (
-    <div className="min-h-screen theme-transition" style={{ background: 'var(--bg-base)' }}>
+    <div className="page-shell min-h-screen theme-transition" style={{ background: 'var(--bg-base)' }}>
       <TopBar title="Team Management" subtitle="Manage members, projects, and assignments" />
 
-      <div className="p-6 space-y-5">
+      <div className="content-layer p-5 lg:p-6 space-y-5">
         {/* Controls */}
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 px-3 py-2 rounded-xl flex-1 max-w-xs"
@@ -263,7 +263,7 @@ export default function Team() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.06 }}
-              className="rounded-xl p-4 theme-transition" style={cardStyle}>
+              className="premium-card p-4 theme-transition" style={cardStyle}>
               <div className="text-2xl font-bold mb-1" style={{ color: s.color }}>{s.value}</div>
               <div className="text-xs" style={{ color: 'var(--text-muted)' }}>{s.label}</div>
             </motion.div>
@@ -287,7 +287,7 @@ export default function Team() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.04 }}
                     onClick={() => setSelectedUser(isSelected ? null : member)}
-                    className="rounded-xl p-4 cursor-pointer transition-all theme-transition"
+                    className="premium-card p-4 cursor-pointer transition-all theme-transition"
                     style={{
                       background: isSelected ? 'var(--accent-soft)' : 'var(--bg-surface)',
                       border: `1px solid ${isSelected ? 'var(--accent-border)' : 'var(--border)'}`,
@@ -324,7 +324,7 @@ export default function Team() {
                           {userProjects.length > 0 ? (
                             <div className="space-y-2">
                               {userProjects.map(p => (
-                                <div key={p.id} className="flex items-center gap-3 px-3 py-2 rounded-xl"
+                                <div key={p.id} className="flex items-center gap-3 px-3 py-2 rounded-2xl premium-card"
                                   style={{ background: 'var(--bg-elevated)' }}>
                                   <div className="flex-1">
                                     <div className="text-xs font-medium" style={{ color: 'var(--text-primary)' }}>{p.name}</div>
@@ -360,7 +360,7 @@ export default function Team() {
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 + i * 0.06 }}
-                    className="rounded-xl p-4 theme-transition"
+                    className="premium-card p-4 theme-transition"
                     style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)' }}>
                     <div className="flex items-start justify-between mb-2">
                       <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{project.name}</div>
