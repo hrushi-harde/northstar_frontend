@@ -9,9 +9,7 @@ import {
 import { useAuth } from '../context/AuthContext';
 import loginBg from '../assets/login-bg.mp4';
 
-/* ═══════════════════════════════════════════════════════════════
-   CONSTANTS — untouched auth data
-═══════════════════════════════════════════════════════════════ */
+
 const roles = [
   { label: 'Executive', email: 'sarah.chen@northstar.io',  desc: 'Org-wide visibility', icon: BarChart3,    color: '#a855f7', glow: 'rgba(168,85,247,0.4)'  },
   { label: 'Manager',   email: 'marcus.webb@northstar.io', desc: 'Team & projects',     icon: Shield,       color: '#ff6a00', glow: 'rgba(255,106,0,0.4)'   },
@@ -25,9 +23,6 @@ const features = [
   { icon: CheckCircle2,label: 'Elegant Workflow',   desc: 'Built for daily use by leadership teams'         },
 ];
 
-/* ═══════════════════════════════════════════════════════════════
-   ANIMATION VARIANTS
-═══════════════════════════════════════════════════════════════ */
 const ease = [0.22, 1, 0.36, 1];
 
 const fadeUp = {
@@ -55,11 +50,7 @@ const item = {
     transition: { duration: 0.5, ease } },
 };
 
-/* ═══════════════════════════════════════════════════════════════
-   SUB-COMPONENTS
-═══════════════════════════════════════════════════════════════ */
 
-/** Animated counter for the stat numbers on the left panel */
 function Counter({ to, suffix = '' }) {
   const [val, setVal] = useState(0);
   useEffect(() => {
@@ -72,7 +63,7 @@ function Counter({ to, suffix = '' }) {
   return <>{val}{suffix}</>;
 }
 
-/** Role selector pill */
+
 function RolePill({ role, selected, onClick }) {
   const Icon = role.icon;
   return (
@@ -123,9 +114,9 @@ function GlassInput({ icon: Icon, type, value, onChange, placeholder, required, 
       <div style={{
         position: 'relative', display: 'flex', alignItems: 'center',
         borderRadius: 12,
-        border: `1px solid ${focused ? 'rgba(255,106,0,0.70)' : 'rgba(255,255,255,0.12)'}`,
-        background: focused ? 'rgba(255,106,0,0.06)' : 'rgba(255,255,255,0.04)',
-        boxShadow: focused ? '0 0 0 3px rgba(255,106,0,0.12)' : 'none',
+        border: `1px solid ${focused ? 'rgba(255,140,0,0.80)' : 'rgba(255,255,255,0.12)'}`,
+        background: focused ? 'rgba(255,140,0,0.06)' : 'rgba(255,255,255,0.08)',
+        boxShadow: focused ? '0 0 0 4px rgba(255,140,0,0.15)' : 'none',
         transition: 'all 220ms ease',
       }}>
         <Icon size={14} style={{
@@ -149,9 +140,7 @@ function GlassInput({ icon: Icon, type, value, onChange, placeholder, required, 
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   LEFT PANEL — glass card wrapping branding + messaging
-═══════════════════════════════════════════════════════════════ */
+
 function LeftPanel() {
   return (
     <motion.div
@@ -168,14 +157,16 @@ function LeftPanel() {
         zIndex: 1,
       }}
     >
-      {/* Solid panel — clean dark background, video stays behind */}
+     
       <div style={{
         position: 'relative',
         borderRadius: 20,
-        background: 'rgba(30,14,4,0.35)',
-        border: '1px solid rgba(160,90,40,0.18)',
+        background: 'rgba(10, 12, 18, 0.72)',
+        backdropFilter: 'blur(28px)',
+        WebkitBackdropFilter: 'blur(28px)',
+        border: '1px solid rgba(255, 255, 255, 0.12)',
         padding: '36px 40px 32px',
-        boxShadow: '0 8px 40px rgba(0,0,0,0.30)',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.45), 0 8px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08)',
       }}>
 
         {/* ── Brand mark ── */}
@@ -312,9 +303,7 @@ function LeftPanel() {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   RIGHT PANEL — login card
-═══════════════════════════════════════════════════════════════ */
+
 function RightPanel({ email, setEmail, password, setPassword, showPassword, setShowPassword,
                       loading, error, handleLogin, selectRole }) {
   return (
@@ -339,7 +328,7 @@ function RightPanel({ email, setEmail, password, setPassword, showPassword, setS
         filter: 'blur(55px)', pointerEvents: 'none', zIndex: 0,
       }} />
 
-      {/* ── Very thin background card — video clearly visible through it ── */}
+   
       <motion.div
         variants={cardAnim}
         initial="hidden"
@@ -350,9 +339,11 @@ function RightPanel({ email, setEmail, password, setPassword, showPassword, setS
           maxWidth: 460,
           minWidth: 340,
           borderRadius: 20,
-          border: '1px solid rgba(160,90,40,0.18)',
-          background: 'rgba(30,14,4,0.35)',
-          boxShadow: '0 8px 40px rgba(0,0,0,0.30)',
+          background: 'rgba(10, 12, 18, 0.72)',
+          backdropFilter: 'blur(28px)',
+          WebkitBackdropFilter: 'blur(28px)',
+          border: '1px solid rgba(255, 255, 255, 0.12)',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.45), 0 8px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08)',
           zIndex: 1,
         }}
       >
@@ -558,7 +549,7 @@ function RightPanel({ email, setEmail, password, setPassword, showPassword, setS
                   letterSpacing: '0.01em', cursor: loading ? 'not-allowed' : 'pointer',
                   display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                   boxShadow: loading ? 'none'
-                    : '0 10px 30px rgba(255,106,0,0.32), 0 0 0 1px rgba(255,255,255,0.06) inset',
+                    : '0 10px 30px rgba(255,120,0,0.35), 0 0 0 1px rgba(255,255,255,0.06) inset',
                   transition: 'box-shadow 220ms ease, background 220ms ease',
                   fontFamily: 'inherit',
                 }}
@@ -610,9 +601,7 @@ function RightPanel({ email, setEmail, password, setPassword, showPassword, setS
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   MAIN EXPORT — Login page
-═══════════════════════════════════════════════════════════════ */
+
 export default function Login() {
   /* ── Auth state (untouched) ── */
   const navigate  = useNavigate();
@@ -677,8 +666,11 @@ export default function Login() {
           }}
         />
 
-        {/* Single feather-light scrim — just enough to anchor white text */}
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.08)' }} />
+        {/* Dark overlay for readability — video stays visible through it */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(to right, rgba(0,0,0,0.55), rgba(0,0,0,0.35))',
+        }} />
       </div>
 
       {/* ════════════════════════════════════════════════════════
