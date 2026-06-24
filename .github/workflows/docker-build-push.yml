@@ -1,0 +1,65 @@
+name: Frontend — Build & Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/northstar-frontend
+
+jobs:
+  build-and-push:
+    name: Build & Push
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Checkout code ────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── 2. Set up Docker Buildx ──────────────────────────────────────────
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # ── 3. Log in to Docker Hub ─────────────────────────────────────────
+      - name: Log in to Docker Hub
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # ── 4. Extract metadata (tags & labels) ─────────────────────────────
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=sha,prefix=sha-,format=short
+
+      # ── 5. Build & Push ──────────────────────────────────────────────────
+      #       VITE_API_URL is passed as a build-arg so the React bundle knows
+      #       where the backend lives. Set VITE_API_URL in your repo secrets.
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          dockerfile: Dockerfile
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            VITE_API_URL=${{ secrets.VITE_API_URL }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # ── 6. Image digest summary ──────────────────────────────────────────
+      - name: Print image digest
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: echo "Pushed image digest ${{ steps.meta.outputs.digest }}"
